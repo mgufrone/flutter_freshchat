@@ -113,6 +113,7 @@ public class SwiftFlutterFreshchatPlugin: NSObject, FlutterPlugin {
                 if (tags != nil && tags!.count > 0) {
                     options.filter(byTags: tags!, withTitle: nil, andType: CATEGORY)
                 }
+                Freshchat.sharedInstance().showFAQs(vc, with: options)
                 result(true)
 
             case SwiftFlutterFreshchatPlugin.METHOD_GET_UNREAD_MESSAGE_COUNT:
