@@ -125,12 +125,14 @@ class FlutterFreshchat {
     bool showContactUsOnAppBar = true,
     bool showContactUsOnFaqScreens = false,
     bool showContactUsOnFaqNotHelpful = false,
+    List<String> tags = const [],
   }) async {
     final Map<String, dynamic> params = <String, dynamic>{
       "showFaqCategoriesAsGrid": showFaqCategoriesAsGrid,
       "showContactUsOnAppBar": showContactUsOnAppBar,
       "showContactUsOnFaqScreens": showContactUsOnFaqScreens,
-      "showContactUsOnFaqNotHelpful": showContactUsOnFaqNotHelpful
+      "showContactUsOnFaqNotHelpful": showContactUsOnFaqNotHelpful,
+      "tags": tags,
     };
 
     final bool result = await _channel.invokeMethod('showFAQs', params);
