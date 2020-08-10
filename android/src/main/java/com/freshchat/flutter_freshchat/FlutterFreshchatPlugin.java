@@ -4,6 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 import com.freshchat.consumer.sdk.FaqOptions;
@@ -127,10 +129,17 @@ public class FlutterFreshchatPlugin implements MethodCallHandler {
             final boolean showContactUsOnAppBar = call.argument("showContactUsOnAppBar");
             final boolean showContactUsOnFaqScreens = call.argument("showContactUsOnFaqScreens");
             final boolean showContactUsOnFaqNotHelpful = call.argument("showContactUsOnFaqNotHelpful");
+            Collection<String> filterTags = call.argument("tags");
+            if (filterTags == null) {
+                filterTags = Collections.emptyList();
+            }
 
             FaqOptions faqOptions = new FaqOptions().showFaqCategoriesAsGrid(showFaqCategoriesAsGrid)
                     .showContactUsOnAppBar(showContactUsOnAppBar).showContactUsOnFaqScreens(showContactUsOnFaqScreens)
                     .showContactUsOnFaqNotHelpful(showContactUsOnFaqNotHelpful);
+            if (filterTags.size() > 0) {
+                faqOptions = faqOptions.filterByTags(filterTags, null, FaqOptions.FilterType.CATEGORY);
+            }
 
             Freshchat.showFAQs(this.application, faqOptions);
             result.success(true);

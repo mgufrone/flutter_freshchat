@@ -104,12 +104,15 @@ public class SwiftFlutterFreshchatPlugin: NSObject, FlutterPlugin {
                 result(true)
 
             case SwiftFlutterFreshchatPlugin.METHOD_SHOW_FAQS:
-                let arguments = call.arguments as! [String: Bool]
+                let arguments = call.arguments as! [String: Any]
                 let options = FAQOptions.init()
-                options.showFaqCategoriesAsGrid = arguments["showFaqCategoriesAsGrid"] ?? false
-                options.showContactUsOnAppBar = arguments["showContactUsOnAppBar"] ?? false
-                options.showContactUsOnFaqScreens = arguments["showContactUsOnFaqScreens"] ?? false
-                Freshchat.sharedInstance().showFAQs(vc, with: options)
+                options.showFaqCategoriesAsGrid = (arguments["showFaqCategoriesAsGrid"] as! Bool)
+                options.showContactUsOnAppBar = (arguments["showContactUsOnAppBar"] as! Bool)
+                options.showContactUsOnFaqScreens = (arguments["showContactUsOnFaqScreens"] as! Bool)
+                let tags = arguments["tags"] as? [String]
+                if (tags != nil && tags!.count > 0) {
+                    options.filter(byTags: tags!, withTitle: nil, andType: CATEGORY)
+                }
                 result(true)
 
             case SwiftFlutterFreshchatPlugin.METHOD_GET_UNREAD_MESSAGE_COUNT:
