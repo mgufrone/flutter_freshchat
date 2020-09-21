@@ -112,6 +112,7 @@ public class SwiftFlutterFreshchatPlugin: NSObject, FlutterPlugin {
                 let tags = arguments["tags"] as? [String]
                 if (tags != nil && tags!.count > 0) {
                     options.filter(byTags: tags!, withTitle: nil, andType: CATEGORY)
+                    options.filterContactUs(byTags: tags, withTitle: nil)
                 }
                 Freshchat.sharedInstance().showFAQs(vc, with: options)
                 result(true)

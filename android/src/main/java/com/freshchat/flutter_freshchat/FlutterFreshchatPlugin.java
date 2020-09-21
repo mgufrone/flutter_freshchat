@@ -139,6 +139,7 @@ public class FlutterFreshchatPlugin implements MethodCallHandler {
                     .showContactUsOnFaqNotHelpful(showContactUsOnFaqNotHelpful);
             if (filterTags.size() > 0) {
                 faqOptions = faqOptions.filterByTags(filterTags, null, FaqOptions.FilterType.CATEGORY);
+                faqOptions.filterContactUsByTags(filterTags, null);
             }
 
             Freshchat.showFAQs(this.application, faqOptions);
